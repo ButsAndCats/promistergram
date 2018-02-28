@@ -1,0 +1,15 @@
+{
+  "name": "promistergram",
+  "version": "1.0.0",
+  "description": "An instagram with promises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "George Butter",
+    "email": "me@georgebutter.com",
+    "url": "https://github.com/ButsAndCats"
+  },
+  "license": "ISC"
+}

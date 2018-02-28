@@ -1,12 +1,19 @@
-instagram-node
-==============
+# Promistergram
 
-NodeJS driver for the Instagram API.
-In production at http://totems.co aggregating more than 200 data points per seconds
+Originally build here: https://github.com/totemstech/instagram-node but the repository went stale.
+
+## Contents
+
+ - [Installation](#installation)
+ - [How it works](#how-it-works)
+ - [API reference](#using-the-api)
+ - [Promises](#promises)
+ - [Errors](#errors)
+
 
 ## Installation
 
-`npm install instagram-node`
+`npm install promistergram`
 
 ## How it works
 
@@ -58,7 +65,7 @@ second method, ```authorize_user```, can be used to retrieve and set an access t
 for a user, allowing your app to act fully on his/her behalf. This method takes
 three parameters: a ```response_code``` which is sent as a GET parameter once a
 user has authorized your app and instagram has redirected them back to your
-authorization redirect URI, a ```redirect_uri``` which is the same one 
+authorization redirect URI, a ```redirect_uri``` which is the same one
 supplied to ```get_authorization_url```, and a callback that takes
 two parameters ```err``` and ```result```. ```err``` will be populated if and
 only if the request to authenticate the user has failed for some reason.
@@ -252,7 +259,28 @@ or just one with this:
 ig.del_subscription({ id: 1 }, function(err, subscriptions, remaining, limit){});
 ```
 
+## Promises
 
+All methods can be used as promises instead of using callbacks, if `.promisify()` is called (this changes all methods signatures and they no longer require a callback to be passed.) Example:
+
+```javascript
+api.use({
+  client_id: YOUR_CLIENT_ID,
+  client_secret: YOUR_CLIENT_SECRET
+});
+
+api.promisify();
+
+app.get('/', function (req, res) {
+    // BEFORE:
+    // api.user_media_recent('30739527', function (err, result) {
+    //     res.send(JSON.stringify(result));
+    // });
+
+    // AFTER:
+    api.user_media_recent('30739527').then(JSON.stringify).then(res.send.bind(res));
+});
+```
 
 ## Errors
 
@@ -307,4 +335,3 @@ Then just use
 ## License
 
 Distributed under the MIT License.
-
